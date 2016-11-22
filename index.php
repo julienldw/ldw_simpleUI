@@ -9,20 +9,20 @@ Description:
 
 if( ! defined('ABSPATH')) exit;
 
-add_action( 'admin_menu', array(JaSimpleUI,'admin_menu') );
-add_action('do_meta_boxes',array(JaSimpleUI,'do_meta_boxes'));
-add_action('wp_dashboard_setup', array(JaSimpleUI,'dashboard_setup') );
-add_action( 'wp_before_admin_bar_render', array(JaSimpleUI,'wp_before_admin_bar_render') );
-add_filter('manage_posts_columns', array(JaSimpleUI,'manage_post_columns'),10,1);
-add_filter('manage_edit-post_columns', array(JaSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-page_columns', array(JaSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-bien_columns', array(JaSimpleUI,'manage_edit_post_columns'),10,1);
-add_action('admin_head',array(JaSimpleUI,'admin_head'));
-add_action('login_head',array(JaSimpleUI,'login_head'));
-//add_action('init',array(JaSimpleUI,'activation'));
-register_activation_hook( __FILE__, array(JaSimpleUI,'activation') );
+add_action( 'admin_menu', array(LDWSimpleUI,'admin_menu') );
+add_action('do_meta_boxes',array(LDWSimpleUI,'do_meta_boxes'));
+add_action('wp_dashboard_setup', array(LDWSimpleUI,'dashboard_setup') );
+add_action( 'wp_before_admin_bar_render', array(LDWSimpleUI,'wp_before_admin_bar_render') );
+add_filter('manage_posts_columns', array(LDWSimpleUI,'manage_post_columns'),10,1);
+add_filter('manage_edit-post_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_filter('manage_edit-page_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_filter('manage_edit-bien_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_action('admin_head',array(LDWSimpleUI,'admin_head'));
+add_action('login_head',array(LDWSimpleUI,'login_head'));
+//add_action('init',array(LDWSimpleUI,'activation'));
+register_activation_hook( __FILE__, array(LDWSimpleUI,'activation') );
 
-class JaSimpleUI{
+class LDWSimpleUI{
 
   // crée le type d'utilisateur
   public function activation(){
@@ -120,7 +120,7 @@ class JaSimpleUI{
     public function dashboard_setup(){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
-        wp_add_dashboard_widget( 'dashboard_rss', 'LdW Actus', array(JaSimpleUI,'dashboard_rss') );
+        wp_add_dashboard_widget( 'dashboard_rss', 'LdW Actus', array(LDWSimpleUI,'dashboard_rss') );
     	if(in_array('ldw_customer',$userdatas->roles)){
     		remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
     		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
