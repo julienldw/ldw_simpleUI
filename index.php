@@ -7,12 +7,14 @@ Version: 0.1.1
 Description:
 */
 
+namespace ldw;
+
 if( ! defined('ABSPATH')) exit;
 
-class LDWSimpleUI{
+class simple_ui{
 
   // crée le type d'utilisateur
-  public function activation(){
+  public static function activation(){
 
   	// à garder uniquement en développement
   	//remove_role('ldw_customer');
@@ -41,7 +43,7 @@ class LDWSimpleUI{
   }
 
   // modifie le logo de la page de connexion
-  public function login_head(){
+  public static function login_head(){
       ?>
       <style>
       .login h1 a{
@@ -52,7 +54,7 @@ class LDWSimpleUI{
   }
 
   // cache des éléments
-  public function admin_head(){
+  public static function admin_head(){
   	global $user_ID;
   	$userdatas = get_userdata($user_ID);
   	if(in_array('ldw_customer',$userdatas->roles)){
@@ -80,7 +82,7 @@ class LDWSimpleUI{
   }
 
   // cache des boites dans l'éditeur de pages et articles
-  public function do_meta_boxes(){
+  public static function do_meta_boxes(){
   	global $user_ID;
   	$userdatas = get_userdata($user_ID);
   	if(in_array('ldw_customer',$userdatas->roles)){
@@ -92,7 +94,7 @@ class LDWSimpleUI{
   	}
   }
     //enlève des éléments dans la topbar
-    public function wp_before_admin_bar_render(){
+    public static function wp_before_admin_bar_render(){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
     	if(in_array('ldw_customer',$userdatas->roles)){
@@ -104,17 +106,17 @@ class LDWSimpleUI{
     }
 
     //modifie le tableau de bord
-    public function dashboard_setup(){
+    public static function dashboard_setup(){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
-        wp_add_dashboard_widget( 'dashboard_rss', 'LdW Actus', array(LDWSimpleUI,'dashboard_rss') );
+        wp_add_dashboard_widget( 'dashboard_rss', 'LdW Actus', array('\ldw\simple_ui','dashboard_rss') );
     	if(in_array('ldw_customer',$userdatas->roles)){
     		remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
     		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
     	}
     }
 
-    public function dashboard_rss() {
+    public static function dashboard_rss() {
     	$feeds = array(
     		'ldw' => array(
 
@@ -130,7 +132,7 @@ class LDWSimpleUI{
     	wp_dashboard_primary_output('dashboard_rss', $feeds);
     }
 
-    function manage_post_columns($columns){
+    public static function manage_post_columns($columns){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
     	if(in_array('ldw_customer',$userdatas->roles)){
@@ -139,7 +141,7 @@ class LDWSimpleUI{
     	return $columns;
     }
 
-    function manage_edit_post_columns($columns){
+    public static function manage_edit_post_columns($columns){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
     	if(in_array('ldw_customer',$userdatas->roles)){
@@ -153,15 +155,15 @@ class LDWSimpleUI{
 
 }
 
-//add_action( 'admin_menu', array('LDWSimpleUI','admin_menu') );
-add_action('do_meta_boxes',array('LDWSimpleUI','do_meta_boxes'));
-add_action('wp_dashboard_setup', array('LDWSimpleUI','dashboard_setup') );
-add_action( 'wp_before_admin_bar_render', array('LDWSimpleUI','wp_before_admin_bar_render') );
-add_filter('manage_posts_columns', array('LDWSimpleUI','manage_post_columns'),10,1);
-add_filter('manage_edit-post_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
-add_filter('manage_edit-page_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
-add_filter('manage_edit-bien_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
-add_action('admin_head',array('LDWSimpleUI','admin_head'));
-add_action('login_head',array('LDWSimpleUI','login_head'));
-//add_action('init',array('LDWSimpleUI','activation'));
-register_activation_hook( __FILE__, array('LDWSimpleUI','activation') );
+//add_action( 'admin_menu', array('\ldw\simple_ui','admin_menu') );
+add_action('do_meta_boxes',array('\ldw\simple_ui','do_meta_boxes'));
+add_action('wp_dashboard_setup', array('\ldw\simple_ui','dashboard_setup') );
+add_action( 'wp_before_admin_bar_render', array('\ldw\simple_ui','wp_before_admin_bar_render') );
+add_filter('manage_posts_columns', array('\ldw\simple_ui','manage_post_columns'),10,1);
+add_filter('manage_edit-post_columns', array('\ldw\simple_ui','manage_edit_post_columns'),10,1);
+add_filter('manage_edit-page_columns', array('\ldw\simple_ui','manage_edit_post_columns'),10,1);
+add_filter('manage_edit-bien_columns', array('\ldw\simple_ui','manage_edit_post_columns'),10,1);
+add_action('admin_head',array('\ldw\simple_ui','admin_head'));
+add_action('login_head',array('\ldw\simple_ui','login_head'));
+//add_action('init',array('\ldw\simple_ui','activation'));
+register_activation_hook( __FILE__, array('\ldw\simple_ui','activation') );
