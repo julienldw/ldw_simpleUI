@@ -3,24 +3,11 @@
 Plugin Name: Simple UI
 Author: Julien Appert
 Author URI: http://lamourduweb.com
-Version: 0.1
+Version: 0.1.1
 Description:
 */
 
 if( ! defined('ABSPATH')) exit;
-
-add_action( 'admin_menu', array(LDWSimpleUI,'admin_menu') );
-add_action('do_meta_boxes',array(LDWSimpleUI,'do_meta_boxes'));
-add_action('wp_dashboard_setup', array(LDWSimpleUI,'dashboard_setup') );
-add_action( 'wp_before_admin_bar_render', array(LDWSimpleUI,'wp_before_admin_bar_render') );
-add_filter('manage_posts_columns', array(LDWSimpleUI,'manage_post_columns'),10,1);
-add_filter('manage_edit-post_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-page_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-bien_columns', array(LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_action('admin_head',array(LDWSimpleUI,'admin_head'));
-add_action('login_head',array(LDWSimpleUI,'login_head'));
-//add_action('init',array(LDWSimpleUI,'activation'));
-register_activation_hook( __FILE__, array(LDWSimpleUI,'activation') );
 
 class LDWSimpleUI{
 
@@ -58,7 +45,7 @@ class LDWSimpleUI{
       ?>
       <style>
       .login h1 a{
-          background-image:url(http://admin.lamourduweb.com/wp-content/uploads/2015/04/logo100.png)!important;
+          background-image:url(https://admin.lamourduweb.com/wp-content/uploads/2015/04/logo100.png)!important;
       }
       </style>
       <?php
@@ -85,7 +72,7 @@ class LDWSimpleUI{
           content:'';
       }
       #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default #wp-admin-bar-wp-logo > .ab-item{
-          background-image:url(http://admin.lamourduweb.com/wp-content/uploads/2015/04/logo30.png)!important; background-size:100%;
+          background-image:url(https://admin.lamourduweb.com/wp-content/uploads/2015/04/logo30.png)!important; background-size:100%;
           background-position:50%;
       }
       </style>
@@ -105,7 +92,7 @@ class LDWSimpleUI{
   	}
   }
     //enlève des éléments dans la topbar
-    public function before_admin_bar_render(){
+    public function wp_before_admin_bar_render(){
     	global $user_ID;
     	$userdatas = get_userdata($user_ID);
     	if(in_array('ldw_customer',$userdatas->roles)){
@@ -165,3 +152,17 @@ class LDWSimpleUI{
     }
 
 }
+$LDWSimpleUI = new LDWSimpleUI();
+
+//add_action( 'admin_menu', array($LDWSimpleUI,'admin_menu') );
+add_action('do_meta_boxes',array($LDWSimpleUI,'do_meta_boxes'));
+add_action('wp_dashboard_setup', array($LDWSimpleUI,'dashboard_setup') );
+add_action( 'wp_before_admin_bar_render', array($LDWSimpleUI,'wp_before_admin_bar_render') );
+add_filter('manage_posts_columns', array($LDWSimpleUI,'manage_post_columns'),10,1);
+add_filter('manage_edit-post_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_filter('manage_edit-page_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_filter('manage_edit-bien_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
+add_action('admin_head',array($LDWSimpleUI,'admin_head'));
+add_action('login_head',array($LDWSimpleUI,'login_head'));
+//add_action('init',array($LDWSimpleUI,'activation'));
+register_activation_hook( __FILE__, array($LDWSimpleUI,'activation') );
