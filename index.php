@@ -152,17 +152,16 @@ class LDWSimpleUI{
     }
 
 }
-$LDWSimpleUI = new LDWSimpleUI();
 
-//add_action( 'admin_menu', array($LDWSimpleUI,'admin_menu') );
-add_action('do_meta_boxes',array($LDWSimpleUI,'do_meta_boxes'));
-add_action('wp_dashboard_setup', array($LDWSimpleUI,'dashboard_setup') );
-add_action( 'wp_before_admin_bar_render', array($LDWSimpleUI,'wp_before_admin_bar_render') );
-add_filter('manage_posts_columns', array($LDWSimpleUI,'manage_post_columns'),10,1);
-add_filter('manage_edit-post_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-page_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_filter('manage_edit-bien_columns', array($LDWSimpleUI,'manage_edit_post_columns'),10,1);
-add_action('admin_head',array($LDWSimpleUI,'admin_head'));
-add_action('login_head',array($LDWSimpleUI,'login_head'));
-//add_action('init',array($LDWSimpleUI,'activation'));
-register_activation_hook( __FILE__, array($LDWSimpleUI,'activation') );
+//add_action( 'admin_menu', array('LDWSimpleUI','admin_menu') );
+add_action('do_meta_boxes',array('LDWSimpleUI','do_meta_boxes'));
+add_action('wp_dashboard_setup', array('LDWSimpleUI','dashboard_setup') );
+add_action( 'wp_before_admin_bar_render', array('LDWSimpleUI','wp_before_admin_bar_render') );
+add_filter('manage_posts_columns', array('LDWSimpleUI','manage_post_columns'),10,1);
+add_filter('manage_edit-post_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
+add_filter('manage_edit-page_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
+add_filter('manage_edit-bien_columns', array('LDWSimpleUI','manage_edit_post_columns'),10,1);
+add_action('admin_head',array('LDWSimpleUI','admin_head'));
+add_action('login_head',array('LDWSimpleUI','login_head'));
+//add_action('init',array('LDWSimpleUI','activation'));
+register_activation_hook( __FILE__, array('LDWSimpleUI','activation') );
