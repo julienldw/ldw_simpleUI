@@ -5,6 +5,7 @@ Author: Julien Appert
 Author URI: http://lamourduweb.com
 Version: 0.2
 Description:
+GitHub Plugin URI: https://github.com/julienldw/ldw_simpleUI
 */
 
 namespace ldw;
